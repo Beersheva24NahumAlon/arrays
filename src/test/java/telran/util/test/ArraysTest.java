@@ -2,6 +2,7 @@ package telran.util.test;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrowsExactly;
 
 import org.junit.jupiter.api.Test;
 import static telran.util.Arrays.*;
@@ -29,8 +30,8 @@ public class ArraysTest {
         assertArrayEquals(expected2, insert(numbers, 0, 4));
         int[] expected3 = { 10, 7, 12, -4, 13, 3, 14, 4 };
         assertArrayEquals(expected3, insert(numbers, 7, 4));
-        //assertArrayEquals(expected2, insert(numbers, -3, 4));
-        //assertArrayEquals(expected3, insert(numbers, 10, 4));
+        assertThrowsExactly(ArrayIndexOutOfBoundsException.class, () -> insert(numbers, -3, 4));
+        assertThrowsExactly(ArrayIndexOutOfBoundsException.class, () -> insert(numbers, 10, 4));
     }
     @Test
     void removeTest() {
@@ -40,8 +41,7 @@ public class ArraysTest {
         assertArrayEquals(expected2, remove(numbers, 0));
         int[] expected3 = { 10, 7, 12, -4, 13, 3};
         assertArrayEquals(expected3, remove(numbers, 6));
-        //assertArrayEquals(expected2, remove(numbers, -3));
-        //assertArrayEquals(expected3, remove(numbers, 10));
+        assertThrowsExactly(ArrayIndexOutOfBoundsException.class, () -> remove(numbers, -3));
+        assertThrowsExactly(ArrayIndexOutOfBoundsException.class, () -> remove(numbers, 10));
     }
-
 }
