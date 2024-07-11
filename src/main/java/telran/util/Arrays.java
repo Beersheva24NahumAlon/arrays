@@ -42,4 +42,45 @@ public class Arrays {
         System.arraycopy(numbers, index + 1, arrayResult, index, numbers.length - index - 1);
         return arrayResult;
     }
+
+    public static boolean pushMaxAtEnd(int[] ar, int len) {
+        boolean res = false;
+        for (int i = 0; i < len; i++) {
+            if (ar[i] > ar[i + 1]) {
+                swap(ar, i, i + 1);
+                res = true;
+            }
+        }
+        return res;
+    }
+
+    public static void swap(int[] ar, int firstIndex, int secondIndex) {
+        int tmp = ar[firstIndex];
+        ar[firstIndex] = ar[secondIndex];
+        ar[secondIndex] = tmp;
+    }
+
+    public static void sort(int[] ar) {
+        boolean flSorted = false;
+        int len = ar.length;
+        while (!flSorted) {
+            len--;
+            flSorted = !pushMaxAtEnd(ar, len);
+        }
+    }
+
+    public static int binarySearch(int[] ar, int key) {
+        // TODO
+        return -1;
+    }
+
+    public static int[] insertSorted(int[] arSorted, int number) {
+        // TODO
+        return null;
+    }
+
+    public static boolean isOneSwap(int[] array) {
+        // TODO
+        return false;
+    }
 }
