@@ -95,6 +95,7 @@ public class ArraysTest {
         }
         return res;
     }
+
     @Test
     void binarySearchTest() {
         int[] sortedArray = { -4, 3, 7, 10, 13, 14, 15 };
@@ -104,5 +105,5 @@ public class ArraysTest {
         assertEquals(0, binarySearch(sortedArray, -4));
         assertEquals(6, binarySearch(sortedArray, 15));
         assertEquals(-1, binarySearch(sortedArray, 12));
-    }    
+    }
 }

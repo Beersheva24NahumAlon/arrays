@@ -70,12 +70,10 @@ public class Arrays {
     }
 
     public static int binarySearch(int[] ar, int key) {
-        int res = -1;
         int start = -1;
         int finish = ar.length;
         int middle;
-        //{ -4, 3, 7, 10, 13, 14, 15 }
-        while (start < finish -1) {
+        while (start < finish - 1) {
             middle = (start + finish) / 2;
             if (ar[middle] < key) {
                 start = middle;
