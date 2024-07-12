@@ -70,8 +70,20 @@ public class Arrays {
     }
 
     public static int binarySearch(int[] ar, int key) {
-        // TODO
-        return -1;
+        int res = -1;
+        int start = -1;
+        int finish = ar.length;
+        int middle;
+        //{ -4, 3, 7, 10, 13, 14, 15 }
+        while (start < finish -1) {
+            middle = (start + finish) / 2;
+            if (ar[middle] < key) {
+                start = middle;
+            } else {
+                finish = middle;
+            }
+        }
+        return ar[finish] == key ? finish : -1;
     }
 
     public static int[] insertSorted(int[] arSorted, int number) {
