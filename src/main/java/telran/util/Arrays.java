@@ -73,7 +73,7 @@ public class Arrays {
         int start = 0;
         int finish = ar.length - 1;
         int middle;
-        boolean isFound = false; 
+        boolean isFound = false;
         do {
             middle = start + (finish - start) / 2;
             if (ar[middle] == key) {
@@ -83,18 +83,42 @@ public class Arrays {
                 start = middle + 1;
             } else {
                 finish = middle - 1;
-            } 
+            }
         } while (start <= finish);
         return isFound ? middle : -start - 1;
     }
 
     public static int[] insertSorted(int[] arSorted, int number) {
-        // TODO
-        return null;
+        int[] arInserted = java.util.Arrays.copyOf(arSorted, arSorted.length);
+        return insert(arInserted, -binarySearch(arInserted, number) - 1, number);
     }
 
     public static boolean isOneSwap(int[] array) {
-        // TODO
-        return false;
+        boolean res = false;
+        for (int i = 0; i < array.length; i++) {
+            if (res) {
+                break;
+            }
+            for (int j = i + 1; j < array.length; j++) {
+                swap(array, i, j);
+                if (isSorted(array)) {
+                    res = true;
+                    swap(array, i, j);
+                    break;
+                }
+                swap(array, i, j);
+            }
+        }
+        return res;
+    }
+
+    public static boolean isSorted(int[] ar) {
+        boolean res = true;
+        for (int i = 0; i < ar.length - 1; i++) {
+            if (ar[i] > ar[i + 1]) {
+                res = false;
+            }
+        }
+        return res;
     }
 }
