@@ -98,12 +98,15 @@ public class ArraysTest {
 
     @Test
     void binarySearchTest() {
-        int[] sortedArray = { -4, 3, 7, 10, 13, 14, 15 };
+        int[] sortedArray = { -4, 3, 7, 10, 13, 14, 16 };
         assertEquals(2, binarySearch(sortedArray, 7));
-        assertEquals(5, binarySearch(sortedArray, 14));
+        assertEquals(6, binarySearch(sortedArray, 16));
         assertEquals(3, binarySearch(sortedArray, 10));
         assertEquals(0, binarySearch(sortedArray, -4));
-        assertEquals(6, binarySearch(sortedArray, 15));
-        assertEquals(-1, binarySearch(sortedArray, 12));
+        assertEquals(-7, binarySearch(sortedArray, 15));
+        assertEquals(-5, binarySearch(sortedArray, 12));
+        assertEquals(-4, binarySearch(sortedArray, 8));
+        assertEquals(-1, binarySearch(sortedArray, -8));
+        assertEquals(-8, binarySearch(sortedArray, 20));
     }
 }

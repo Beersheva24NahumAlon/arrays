@@ -70,18 +70,22 @@ public class Arrays {
     }
 
     public static int binarySearch(int[] ar, int key) {
-        int start = -1;
-        int finish = ar.length;
+        int start = 0;
+        int finish = ar.length - 1;
         int middle;
-        while (start < finish - 1) {
-            middle = (start + finish) / 2;
-            if (ar[middle] < key) {
-                start = middle;
+        boolean isFound = false; 
+        do {
+            middle = start + (finish - start) / 2;
+            if (ar[middle] == key) {
+                isFound = true;
+                break;
+            } else if (ar[middle] < key) {
+                start = middle + 1;
             } else {
-                finish = middle;
-            }
-        }
-        return ar[finish] == key ? finish : -1;
+                finish = middle - 1;
+            } 
+        } while (start <= finish);
+        return isFound ? middle : -start - 1;
     }
 
     public static int[] insertSorted(int[] arSorted, int number) {
