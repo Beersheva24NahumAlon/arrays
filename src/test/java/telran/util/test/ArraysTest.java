@@ -8,6 +8,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
 import static telran.util.Arrays.*;
 
+import java.util.Comparator;
 import java.util.Random;
 
 public class ArraysTest {
@@ -60,16 +61,6 @@ public class ArraysTest {
     }
 
     @Test
-    void pushMaxAtEndTest() {
-        int[] numbers1 = { 10, 7, 15, -4, 13, 3, 14 };
-        pushMaxAtEnd(numbers1, 7);
-        assertEquals(15, numbers1[numbers1.length - 1]);
-        numbers1 = new int[] { 20, -10, 10, -17 };
-        pushMaxAtEnd(numbers1, 4);
-        assertEquals(20, numbers1[numbers1.length - 1]);
-    }
-
-    @Test
     void sortTest() {
         int[] numbers1 = { 10, 7, 15, -4, 13, 3, 14 };
         int[] expected = { -4, 3, 7, 10, 13, 14, 15 };
@@ -116,9 +107,15 @@ public class ArraysTest {
         int[] resArray1 = { -8, -4, 3, 7, 10, 13, 14, 16 };
         int[] resArray2 = { -4, 3, 7, 10, 12, 13, 14, 16 };
         int[] resArray3 = { -4, 3, 7, 10, 13, 14, 16, 19 };
+        int[] resArray4 = { -4, 3, 7, 10, 13, 14, 16, 16 };
+        int[] resArray5 = { -4, -4, 3, 7, 10, 13, 14, 16 };
+        int[] resArray6 = { -4, 3, 7, 10, 10, 13, 14, 16 };
         assertArrayEquals(resArray1, insertSorted(sortedArray, -8));
         assertArrayEquals(resArray2, insertSorted(sortedArray, 12));
         assertArrayEquals(resArray3, insertSorted(sortedArray, 19));
+        assertArrayEquals(resArray4, insertSorted(sortedArray, 16));
+        assertArrayEquals(resArray5, insertSorted(sortedArray, -4));
+        assertArrayEquals(resArray6, insertSorted(sortedArray, 10));
     }
 
     @Test
@@ -135,5 +132,16 @@ public class ArraysTest {
         assertEquals(false, isOneSwap(testArrayFalse1));
         assertEquals(false, isOneSwap(testArrayFalse2));
         assertEquals(false, isOneSwap(testArrayFalse3));
+    }
+
+    @Test
+    void sortAnyTypeTest() {
+        String[] strings = { "lmn", "cfta", "w", "aa" };
+        String[] expectedASCII = { "aa", "cfta", "lmn", "w" };
+        String[] expectedLengths = { "w", "aa", "lmn", "cfta" };
+        sort(strings, new ComparatorASCII());
+        assertArrayEquals(expectedASCII, strings);
+        sort(strings, new ComparatorLengths());
+        assertArrayEquals(expectedLengths, strings);
     }
 }
