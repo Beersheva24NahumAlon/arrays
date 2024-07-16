@@ -95,19 +95,35 @@ public class Arrays {
     }
 
     public static boolean isOneSwap(int[] array) {
-        // TODO
-        boolean res = false;
+        int firstElenemt = getFirstElement(array);
+        int secondElement = getSecondElement(array);
+        return checkOneSwap(array, firstElenemt, secondElement);
+    }
+
+    private static int getSecondElement(int[] array) {
+        int i = array.length - 1;
+        while (i > 1 && array[i] > array[i - 1]) {
+            i--;
+        }
+        return i;
+    }
+
+    private static int getFirstElement(int[] array) {
         int i = 0;
-        int j = 1;
-        while (!res && i < array.length) {
-            j = i + 1;
-            while (!res && j < array.length) {
-                swap(array, i, j);
-                res = isSorted(array);
-                swap(array, i, j);
-                j++;
-            }
+        while (i < array.length - 1 && array[i] <= array[i + 1]) {
             i++;
+        }
+        return i;
+    }
+
+    private static boolean checkOneSwap(int[] array, int i, int j) {
+        boolean res;
+        if (i > array.length || j < 0) {
+            res = false;
+        } else {
+            swap(array, i, j);
+            res = isSorted(array);
+            swap(array, i, j);
         }
         return res;
     }

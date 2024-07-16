@@ -2,7 +2,7 @@ package telran.util.test;
 
 import java.util.Comparator;
 
-public class ComparatorLengths implements Comparator<String>{
+public class ComparatorLengths implements Comparator<String> {
 
     @Override
     public int compare(String arg0, String arg1) {
