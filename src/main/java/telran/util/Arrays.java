@@ -142,7 +142,17 @@ public class Arrays {
     }
 
     public static <T> int binarySearch(T[] array, T key, Comparator<T> comparator) {
-        //TODO
-        return -1;
+        int start = 0;
+        int finish = array.length - 1;
+        int middle = (start + finish) / 2;
+        while (start <= finish && comparator.compare(array[middle], key) != 0) {
+            if (comparator.compare(array[middle], key) < 0) {
+                start = middle + 1;
+            } else {
+                finish = middle - 1;
+            }
+            middle = (start + finish) / 2;
+        }
+        return start <= finish ? middle : -start - 1;
     }
 }

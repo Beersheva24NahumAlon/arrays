@@ -8,7 +8,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
 import static telran.util.Arrays.*;
 
-import java.util.Comparator;
 import java.util.Random;
 
 public class ArraysTest {
@@ -143,5 +142,21 @@ public class ArraysTest {
         assertArrayEquals(expectedASCII, strings);
         sort(strings, new ComparatorLengths());
         assertArrayEquals(expectedLengths, strings);
+    }
+
+    @Test
+    void binarySearchAnyTypeTest() {
+        String[] stringsASCII = { "aa", "cfta", "lmn", "w" };
+        String[] stringsLengths = { "w", "aa", "lmn", "cftaa" };
+        assertEquals(0, binarySearch(stringsASCII, "aa", new ComparatorASCII()));
+        assertEquals(1, binarySearch(stringsASCII, "cfta", new ComparatorASCII()));
+        assertEquals(3, binarySearch(stringsASCII, "w", new ComparatorASCII()));
+        assertEquals(-4, binarySearch(stringsASCII, "opt", new ComparatorASCII()));
+        assertEquals(-5, binarySearch(stringsASCII, "www", new ComparatorASCII()));
+        assertEquals(0, binarySearch(stringsLengths, "w", new ComparatorLengths()));
+        assertEquals(1, binarySearch(stringsLengths, "aa", new ComparatorLengths()));
+        assertEquals(3, binarySearch(stringsLengths, "cftaa", new ComparatorLengths()));
+        assertEquals(-4, binarySearch(stringsLengths, "opti", new ComparatorLengths()));
+        assertEquals(-5, binarySearch(stringsLengths, "wwwwww", new ComparatorLengths()));
     }
 }
