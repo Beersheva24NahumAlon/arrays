@@ -148,6 +148,7 @@ public class ArraysTest {
     void binarySearchAnyTypeTest() {
         String[] stringsASCII = { "aa", "cfta", "lmn", "w" };
         String[] stringsLengths = { "w", "aa", "lmn", "cftaa" };
+        Integer[] integers = { 10, 20, 30, 40, 50 };
         assertEquals(0, binarySearch(stringsASCII, "aa", new ComparatorASCII()));
         assertEquals(1, binarySearch(stringsASCII, "cfta", new ComparatorASCII()));
         assertEquals(3, binarySearch(stringsASCII, "w", new ComparatorASCII()));
@@ -155,8 +156,14 @@ public class ArraysTest {
         assertEquals(-5, binarySearch(stringsASCII, "www", new ComparatorASCII()));
         assertEquals(0, binarySearch(stringsLengths, "w", new ComparatorLengths()));
         assertEquals(1, binarySearch(stringsLengths, "aa", new ComparatorLengths()));
+        assertEquals(2, binarySearch(stringsLengths, "www", new ComparatorLengths()));
         assertEquals(3, binarySearch(stringsLengths, "cftaa", new ComparatorLengths()));
         assertEquals(-4, binarySearch(stringsLengths, "opti", new ComparatorLengths()));
         assertEquals(-5, binarySearch(stringsLengths, "wwwwww", new ComparatorLengths()));
+        assertEquals(0, binarySearch(integers, 10, new ComparatorInteger()));
+        assertEquals(2, binarySearch(integers, 30, new ComparatorInteger()));
+        assertEquals(4, binarySearch(integers, 50, new ComparatorInteger()));
+        assertEquals(-6, binarySearch(integers, 55, new ComparatorInteger()));
+        assertEquals(-2, binarySearch(integers, 15, new ComparatorInteger()));
     }
 }
