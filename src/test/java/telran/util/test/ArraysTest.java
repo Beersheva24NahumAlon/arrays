@@ -6,6 +6,8 @@ import static org.junit.jupiter.api.Assertions.assertThrowsExactly;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
+//import org.junit.jupiter.api.TestInstance;
+
 import static telran.util.Arrays.*;
 
 import java.util.Random;
@@ -166,4 +168,32 @@ public class ArraysTest {
         assertEquals(-6, binarySearch(integers, 55, new ComparatorInteger()));
         assertEquals(-2, binarySearch(integers, 15, new ComparatorInteger()));
     }
+
+    @Test
+    void binarySearchNoComparator() {
+        String[] strings = { "aa", "cfta", "lmn", "w" };
+        Person prs1 = new Person(10, "Vasya");
+        Person prs2 = new Person(20, "Itay");
+        Person prs3 = new Person(30, "Sara");
+        Person[] persons = { prs1, prs2, prs3 };
+        assertEquals(1, binarySearch(strings, "cfta"));
+        assertEquals(0, binarySearch(persons, prs1));
+        assertEquals(2, binarySearch(persons, new Person(30, "null")));
+        assertEquals(-3, binarySearch(persons, new Person(25, "null")));
+    }
+
+    @Test
+    void evenOddSortingTest() {
+        Integer[] array = { 7, -8, 10, -100, 13, -10, 99 };
+        Integer[] expected = { -100, -10, -8, 10, 99, 13, 7 };
+        sort(array, new EvenOddComporator());
+        assertArrayEquals(expected, array);
+    }
+
+    @Test
+    void findTest() {
+        Integer[] array = { 7, -8, 10, -100, 13, -10, 99 };
+        Integer[] expected = { 7, 13, 99 };
+        assertArrayEquals(expected, find(array, new OddNumbersPredicate()));
+    }    
 }

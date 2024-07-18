@@ -1,6 +1,7 @@
 package telran.util;
 
 import java.util.Comparator;
+import java.util.function.Predicate;
 
 public class Arrays {
     public static int search(int[] ar, int key) {
@@ -170,5 +171,32 @@ public class Arrays {
             middle = (start + finish) / 2;
         }
         return start <= finish ? middle : -start - 1;
+    }
+
+    public static <T> int binarySearch(T[] array, T key) {
+        //TODO
+        return -1;
+    }
+
+    public static <T> T[] insert(T[] array, int index, T item) {
+        T[] arrayResult = java.util.Arrays.copyOf(array, array.length + 1);
+        arrayResult[index] = item;
+        System.arraycopy(array, index, arrayResult, index + 1, array.length - index);
+        return arrayResult;
+    }
+
+    public static <T> T[] find(T[] array, Predicate<T> predicate) {
+        T[] result = java.util.Arrays.copyOf(array, 0);
+        for (int i = 0; i < array.length; i++) {
+            if (predicate.test(array[i])) {
+                result = insert(result, result.length, array[i]);
+            }
+        }
+        return result;
+    }
+
+    public static <T> T[] removeIf(T[] array, Predicate<T> predicate) {
+        //TODO only one line code
+        return null;
     }
 }
