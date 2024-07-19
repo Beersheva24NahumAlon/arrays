@@ -6,15 +6,15 @@ public class EvenOddComporator implements Comparator<Integer> {
 
     @Override
     public int compare(Integer arg0, Integer arg1) {
-        int res = 0;
-        if (arg0 % 2 == 0 && arg1 % 2 == 0) {
+        int res = 1;
+        boolean isEvenArg0 = arg0 % 2 == 0;
+        boolean isEvenArg1 = arg1 % 2 == 0;
+        if (isEvenArg0 && isEvenArg1) {
             res = arg0 - arg1;
-        } else if (arg0 % 2 != 0 && arg1 % 2 != 0) {
+        } else if (!isEvenArg0 && !isEvenArg1) {
             res = arg1 - arg0;
-        } else if (arg0 % 2 == 0 && arg1 % 2 != 0) {
+        } else if (isEvenArg0 && !isEvenArg1) {
             res = -1;
-        } else {
-            res = 1;
         }
         return res;
     }

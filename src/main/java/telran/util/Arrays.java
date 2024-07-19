@@ -173,8 +173,9 @@ public class Arrays {
         return start <= finish ? middle : -start - 1;
     }
 
-    public static <T extends Comparable<T>> int binarySearch(T[] array, T key) {
-        return binarySearch(array, key, Comparator.naturalOrder());
+    @SuppressWarnings("unchecked")
+    public static <T> int binarySearch(T[] array, T key) {
+        return binarySearch(array, key, (Comparator<T>) Comparator.naturalOrder());
     }
 
     public static <T> T[] insert(T[] array, int index, T item) {
