@@ -173,9 +173,8 @@ public class Arrays {
         return start <= finish ? middle : -start - 1;
     }
 
-    public static <T> int binarySearch(T[] array, T key) {
-        //TODO
-        return -1;
+    public static <T extends Comparable<T>> int binarySearch(T[] array, T key) {
+        return binarySearch(array, key, Comparator.naturalOrder());
     }
 
     public static <T> T[] insert(T[] array, int index, T item) {
@@ -196,7 +195,6 @@ public class Arrays {
     }
 
     public static <T> T[] removeIf(T[] array, Predicate<T> predicate) {
-        //TODO only one line code
-        return null;
+        return find(array, predicate.negate());
     }
 }

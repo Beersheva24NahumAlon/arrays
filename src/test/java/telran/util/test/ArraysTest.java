@@ -6,7 +6,6 @@ import static org.junit.jupiter.api.Assertions.assertThrowsExactly;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
-//import org.junit.jupiter.api.TestInstance;
 
 import static telran.util.Arrays.*;
 
@@ -195,5 +194,12 @@ public class ArraysTest {
         Integer[] array = { 7, -8, 10, -100, 13, -10, 99 };
         Integer[] expected = { 7, 13, 99 };
         assertArrayEquals(expected, find(array, new OddNumbersPredicate()));
-    }    
+    }
+
+    @Test
+    void removeIfTest() {
+        Integer[] array = { 7, -8, 10, -100, 13, -10, 99 };
+        Integer[] expected = { -8, 10, -100, -10 };
+        assertArrayEquals(expected, removeIf(array, new OddNumbersPredicate()));
+    }
 }
