@@ -199,8 +199,30 @@ public class Arrays {
         return find(array, predicate.negate());
     }
 
-    public static String matchesRules(char[] chars, CharacterRule[] mustBeRule, CharacterRule[] mustNotBeRule) {
-        //TODO
-        return "";
+    public static String matchesRules(Character[] chars, CharacterRule[] mustBeRule, CharacterRule[] mustNotBeRule) {
+        String res = "";
+        for (int i = 0; i < mustBeRule.length; i++) {
+            if (matchesOneRule(chars, mustBeRule[i])) {
+                res += mustBeRule[i].errorMessage + ", ";
+            }
+        }
+        for (int i = 0; i < mustNotBeRule.length; i++) {
+            if (matchesOneRule(chars, mustNotBeRule[i])) {
+                res += mustNotBeRule[i].errorMessage + ", ";
+            }
+        }
+        return res.length() > 2 ? res.substring(0, res.length() - 2) : "";
+    }
+
+    private static boolean matchesOneRule(Character[] chars, CharacterRule rule) {
+        boolean res = false;
+        int i = 0;
+        while (i < chars.length && !rule.predicate.test(chars[i])) {
+            i++;
+        }
+        if ((rule.flag && i == chars.length) || (!rule.flag && i != chars.length)) {
+            res = true;
+        }
+        return res;
     }
 }

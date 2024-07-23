@@ -12,4 +12,5 @@ public class CharacterRule {
         this.predicate = predicate;
         this.errorMessage = errorMessage;
     }
+
 }

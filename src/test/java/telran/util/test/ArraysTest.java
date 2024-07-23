@@ -6,7 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertThrowsExactly;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
-
+import telran.util.CharacterRule;
 import static telran.util.Arrays.*;
 
 import java.util.Comparator;
@@ -217,5 +217,26 @@ public class ArraysTest {
         Integer[] array = { 7, -8, 10, -100, 13, -10, 99 };
         Integer[] expected = { -8, 10, -100, -10 };
         assertArrayEquals(expected, removeIf(array, n -> n % 2 != 0));
+    }
+
+    @Test
+    void matchesRulesTest() {
+        CharacterRule ruleOneCapital = new CharacterRule(true, a -> Character.isUpperCase(a), "no capital");
+        CharacterRule ruleOneLowerCase = new CharacterRule(true, a -> Character.isLowerCase(a), "no lowercase");
+        CharacterRule ruleOneDot = new CharacterRule(true, a -> a == '.', "no dot");
+        CharacterRule ruleOneDigit = new CharacterRule(true, a -> Character.isDigit(a), "no digit");
+        CharacterRule ruleNoSpace = new CharacterRule(false, a -> Character.isSpaceChar(a), "space disallowed");
+        CharacterRule[] allows = { ruleOneCapital, ruleOneLowerCase, ruleOneDot, ruleOneDigit };
+        CharacterRule[] forbidens = { ruleNoSpace };
+        Character[] chars1 = { 'a', 'n', '*', 'G', '.', '.', '1' };
+        assertEquals("", matchesRules(chars1, allows, forbidens));
+        Character[] chars2 = { 'a', 'n', '*', 'G', '.', '.', '1', ' ' };
+        assertEquals("space disallowed", matchesRules(chars2, allows, forbidens));
+        Character[] chars3 = { 'a', 'n', '*', '.', '.', '1' };
+        assertEquals("no capital", matchesRules(chars3, allows, forbidens));
+        Character[] chars4 = { 'a', 'n', '*', 'G', '.', '.' };
+        assertEquals("no digit", matchesRules(chars4, allows, forbidens));
+        Character[] chars5 = { 'a', 'n', '*', 'G', '.', '.', ' ' };
+        assertEquals("no digit, space disallowed", matchesRules(chars5, allows, forbidens));
     }
 }
