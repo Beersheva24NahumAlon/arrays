@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Test;
 
 import static telran.util.Arrays.*;
 
+import java.util.Comparator;
 import java.util.Random;
 
 public class ArraysTest {
@@ -139,9 +140,9 @@ public class ArraysTest {
         String[] strings = { "lmn", "cfta", "w", "aa" };
         String[] expectedASCII = { "aa", "cfta", "lmn", "w" };
         String[] expectedLengths = { "w", "aa", "lmn", "cfta" };
-        sort(strings, new ComparatorASCII());
+        sort(strings, (a, b) -> a.compareTo(b));
         assertArrayEquals(expectedASCII, strings);
-        sort(strings, new ComparatorLengths());
+        sort(strings, (a, b) -> Integer.compare(a.length(), b.length()));
         assertArrayEquals(expectedLengths, strings);
     }
 
@@ -150,22 +151,25 @@ public class ArraysTest {
         String[] stringsASCII = { "aa", "cfta", "lmn", "w" };
         String[] stringsLengths = { "w", "aa", "lmn", "cftaa" };
         Integer[] integers = { 10, 20, 30, 40, 50 };
-        assertEquals(0, binarySearch(stringsASCII, "aa", new ComparatorASCII()));
-        assertEquals(1, binarySearch(stringsASCII, "cfta", new ComparatorASCII()));
-        assertEquals(3, binarySearch(stringsASCII, "w", new ComparatorASCII()));
-        assertEquals(-4, binarySearch(stringsASCII, "opt", new ComparatorASCII()));
-        assertEquals(-5, binarySearch(stringsASCII, "www", new ComparatorASCII()));
-        assertEquals(0, binarySearch(stringsLengths, "w", new ComparatorLengths()));
-        assertEquals(1, binarySearch(stringsLengths, "aa", new ComparatorLengths()));
-        assertEquals(2, binarySearch(stringsLengths, "www", new ComparatorLengths()));
-        assertEquals(3, binarySearch(stringsLengths, "cftaa", new ComparatorLengths()));
-        assertEquals(-4, binarySearch(stringsLengths, "opti", new ComparatorLengths()));
-        assertEquals(-5, binarySearch(stringsLengths, "wwwwww", new ComparatorLengths()));
-        assertEquals(0, binarySearch(integers, 10, new ComparatorInteger()));
-        assertEquals(2, binarySearch(integers, 30, new ComparatorInteger()));
-        assertEquals(4, binarySearch(integers, 50, new ComparatorInteger()));
-        assertEquals(-6, binarySearch(integers, 55, new ComparatorInteger()));
-        assertEquals(-2, binarySearch(integers, 15, new ComparatorInteger()));
+        Comparator<String> compStringASCII = (a, b) -> a.compareTo(b);
+        Comparator<String> compStringLength = (a, b) -> Integer.compare(a.length(), b.length());
+        Comparator<Integer> compInteger = (a, b) -> a - b;
+        assertEquals(0, binarySearch(stringsASCII, "aa", compStringASCII));
+        assertEquals(1, binarySearch(stringsASCII, "cfta", compStringASCII));
+        assertEquals(3, binarySearch(stringsASCII, "w", compStringASCII));
+        assertEquals(-4, binarySearch(stringsASCII, "opt", compStringASCII));
+        assertEquals(-5, binarySearch(stringsASCII, "www", compStringASCII));
+        assertEquals(0, binarySearch(stringsLengths, "w", compStringLength));
+        assertEquals(1, binarySearch(stringsLengths, "aa", compStringLength));
+        assertEquals(2, binarySearch(stringsLengths, "www", compStringLength));
+        assertEquals(3, binarySearch(stringsLengths, "cftaa", compStringLength));
+        assertEquals(-4, binarySearch(stringsLengths, "opti", compStringLength));
+        assertEquals(-5, binarySearch(stringsLengths, "wwwwww", compStringLength));
+        assertEquals(0, binarySearch(integers, 10, compInteger));
+        assertEquals(2, binarySearch(integers, 30, compInteger));
+        assertEquals(4, binarySearch(integers, 50, compInteger));
+        assertEquals(-6, binarySearch(integers, 55, compInteger));
+        assertEquals(-2, binarySearch(integers, 15, compInteger));
     }
 
     @Test
@@ -185,7 +189,19 @@ public class ArraysTest {
     void evenOddSortingTest() {
         Integer[] array = { 7, -8, 10, -100, 13, -10, 99 };
         Integer[] expected = { -100, -10, -8, 10, 99, 13, 7 };
-        sort(array, new EvenOddComporator());
+        sort(array, (arg0, arg1) -> {
+            int res = 1;
+            boolean isEvenArg0 = arg0 % 2 == 0;
+            boolean isEvenArg1 = arg1 % 2 == 0;
+            if (isEvenArg0 && isEvenArg1) {
+                res = arg0 - arg1;
+            } else if (!isEvenArg0 && !isEvenArg1) {
+                res = arg1 - arg0;
+            } else if (isEvenArg0 && !isEvenArg1) {
+                res = -1;
+            }
+            return res;
+        });
         assertArrayEquals(expected, array);
     }
 
@@ -193,13 +209,13 @@ public class ArraysTest {
     void findTest() {
         Integer[] array = { 7, -8, 10, -100, 13, -10, 99 };
         Integer[] expected = { 7, 13, 99 };
-        assertArrayEquals(expected, find(array, new OddNumbersPredicate()));
+        assertArrayEquals(expected, find(array, n -> n % 2 != 0));
     }
 
     @Test
     void removeIfTest() {
         Integer[] array = { 7, -8, 10, -100, 13, -10, 99 };
         Integer[] expected = { -8, 10, -100, -10 };
-        assertArrayEquals(expected, removeIf(array, new OddNumbersPredicate()));
+        assertArrayEquals(expected, removeIf(array, n -> n % 2 != 0));
     }
 }

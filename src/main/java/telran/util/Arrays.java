@@ -198,4 +198,9 @@ public class Arrays {
     public static <T> T[] removeIf(T[] array, Predicate<T> predicate) {
         return find(array, predicate.negate());
     }
+
+    public static String matchesRules(char[] chars, CharacterRule[] mustBeRule, CharacterRule[] mustNotBeRule) {
+        //TODO
+        return "";
+    }
 }
