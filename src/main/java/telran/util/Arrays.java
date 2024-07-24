@@ -214,14 +214,10 @@ public class Arrays {
         return res;
     }
     private static boolean matchesOneRule(Character[] chars, CharacterRule rule) {
-        boolean res = false;
         int i = 0;
         while (i < chars.length && !rule.predicate.test(chars[i])) {
             i++;
         }
-        if ((rule.flag && i == chars.length) || (!rule.flag && i != chars.length)) {
-            res = true;
-        }
-        return res;
+        return (rule.flag && i == chars.length) || (!rule.flag && i != chars.length) ? true : false;
     }
 }
