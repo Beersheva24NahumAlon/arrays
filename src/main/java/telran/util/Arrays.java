@@ -200,20 +200,19 @@ public class Arrays {
     }
 
     public static String matchesRules(Character[] chars, CharacterRule[] mustBeRule, CharacterRule[] mustNotBeRule) {
-        String res = "";
-        for (int i = 0; i < mustBeRule.length; i++) {
-            if (matchesOneRule(chars, mustBeRule[i])) {
-                res += mustBeRule[i].errorMessage + ", ";
-            }
-        }
-        for (int i = 0; i < mustNotBeRule.length; i++) {
-            if (matchesOneRule(chars, mustNotBeRule[i])) {
-                res += mustNotBeRule[i].errorMessage + ", ";
-            }
-        }
+        String res = matchesArrayOfRules(chars, mustBeRule) + matchesArrayOfRules(chars, mustNotBeRule);
         return res.length() > 2 ? res.substring(0, res.length() - 2) : "";
     }
 
+    private static String matchesArrayOfRules(Character[] chars, CharacterRule[] rules) {
+        String res = "";
+        for (int i = 0; i < rules.length; i++) {
+            if (matchesOneRule(chars, rules[i])) {
+                res += rules[i].errorMessage + ", ";
+            }
+        }
+        return res;
+    }
     private static boolean matchesOneRule(Character[] chars, CharacterRule rule) {
         boolean res = false;
         int i = 0;
