@@ -221,11 +221,11 @@ public class ArraysTest {
 
     @Test
     void matchesRulesTest() {
-        CharacterRule ruleOneCapital = new CharacterRule(true, a -> Character.isUpperCase(a), "no capital");
-        CharacterRule ruleOneLowerCase = new CharacterRule(true, a -> Character.isLowerCase(a), "no lowercase");
+        CharacterRule ruleOneCapital = new CharacterRule(true, Character::isUpperCase, "no capital");
+        CharacterRule ruleOneLowerCase = new CharacterRule(true, Character::isLowerCase, "no lowercase");
         CharacterRule ruleOneDot = new CharacterRule(true, a -> a == '.', "no dot");
-        CharacterRule ruleOneDigit = new CharacterRule(true, a -> Character.isDigit(a), "no digit");
-        CharacterRule ruleNoSpace = new CharacterRule(false, a -> Character.isSpaceChar(a), "space disallowed");
+        CharacterRule ruleOneDigit = new CharacterRule(true, Character::isDigit, "no digit");
+        CharacterRule ruleNoSpace = new CharacterRule(false, Character::isSpaceChar, "space disallowed");
         CharacterRule[] allows = { ruleOneCapital, ruleOneLowerCase, ruleOneDot, ruleOneDigit };
         CharacterRule[] forbidens = { ruleNoSpace };
         Character[] chars1 = { 'a', 'n', '*', 'G', '.', '.', '1' };
